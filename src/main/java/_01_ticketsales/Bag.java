@@ -21,8 +21,8 @@ public class Bag {
             return 0L;
         } else {
             this.setTicket(ticket);
-            this.minusAmount(ticket.getFee());
-            return ticket.getFee();
+            this.minusAmount(ticket.fee());
+            return ticket.fee();
         }
     }
 
