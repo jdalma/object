@@ -2,8 +2,8 @@ package _02_movie.policy;
 
 import _02_movie.Money;
 import _02_movie.Screening;
+import _02_movie.movie.DiscountPolicy;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class OverlappedDiscountPolicy extends DefaultDiscountPolicy {

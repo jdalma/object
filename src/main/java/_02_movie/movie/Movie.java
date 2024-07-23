@@ -1,6 +1,7 @@
-package _02_movie;
+package _02_movie.movie;
 
-import _02_movie.policy.DiscountPolicy;
+import _02_movie.Money;
+import _02_movie.Screening;
 
 import java.time.Duration;
 

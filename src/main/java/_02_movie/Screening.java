@@ -1,5 +1,7 @@
 package _02_movie;
 
+import _02_movie.movie.Movie;
+
 import java.time.LocalDateTime;
 
 public class Screening {

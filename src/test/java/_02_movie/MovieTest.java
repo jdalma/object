@@ -2,8 +2,9 @@ package _02_movie;
 
 import _02_movie.condition.PeriodCondition;
 import _02_movie.condition.SequenceCondition;
+import _02_movie.movie.Movie;
 import _02_movie.policy.AmountDiscountPolicy;
-import _02_movie.policy.DiscountPolicy;
+import _02_movie.movie.DiscountPolicy;
 import _02_movie.policy.NoneDiscountPolicy;
 import _02_movie.policy.PercentDiscountPolicy;
 import org.assertj.core.api.Assertions;
