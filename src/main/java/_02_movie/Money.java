@@ -55,4 +55,12 @@ public class Money {
     public int hashCode() {
         return Objects.hash(amount);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Money{");
+        sb.append("amount=").append(amount);
+        sb.append('}');
+        return sb.toString();
+    }
 }

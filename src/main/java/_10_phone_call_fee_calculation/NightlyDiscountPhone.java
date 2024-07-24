@@ -6,37 +6,34 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NightlyDiscountPhone {
+public class NightlyDiscountPhone extends Phone {
 
     private static final int LATE_NIGHT_HOUR = 22;
 
     private final Money nightlyAmount;
     private final Money regularAmount;
     private final Duration seconds;
-    private final List<Call> calls;
 
     public NightlyDiscountPhone(Money nightlyAmount, Money regularAmount, Duration seconds) {
+        super(0);
         this.nightlyAmount = nightlyAmount;
         this.regularAmount = regularAmount;
         this.seconds = seconds;
-        this.calls = new ArrayList<>();
     }
 
-    public Money calculateFee() {
-        Money result = Money.ZERO;
+    public NightlyDiscountPhone(Money nightlyAmount, Money regularAmount, Duration seconds, double taxRate) {
+        super(taxRate);
+        this.nightlyAmount = nightlyAmount;
+        this.regularAmount = regularAmount;
+        this.seconds = seconds;
+    }
 
-        for (Call call : calls) {
-            if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
-                result = result.plus(
-                    nightlyAmount.times((double) call.getDuration().getSeconds() / seconds.getSeconds())
-                );
-            } else {
-                result = result.plus(
-                    regularAmount.times((double) call.getDuration().getSeconds() / seconds.getSeconds())
-                );
-            }
+    @Override
+    protected Money calculateCallFee(Call call) {
+        if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
+            return nightlyAmount.times((double) call.getDuration().getSeconds() / seconds.getSeconds());
+        } else {
+            return regularAmount.times((double) call.getDuration().getSeconds() / seconds.getSeconds());
         }
-
-        return result;
     }
 }
