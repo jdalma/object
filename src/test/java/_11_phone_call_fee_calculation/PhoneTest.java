@@ -8,13 +8,6 @@ import java.time.Duration;
 @DisplayName("Phone")
 class PhoneTest {
 
-    void test() {
-        new RegularPolicy(
-                Money.wons(10),
-                Duration.ofSeconds(10)).
-    }
-
-
     // 일반 요금제의 규칙에 따라 통화 요금을 계산하는 전화
     Phone regularPolicyPhone() {
         return new Phone(
