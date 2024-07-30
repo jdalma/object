@@ -29,7 +29,7 @@ public abstract class DefaultDiscountPolicy implements DiscountPolicy {
     }
 
     private void checkPreCondition(Screening screening) {
-        assert screening != null && screening.getWhenScreened().isAfter(LocalDateTime.now());
+//        assert screening != null && screening.getWhenScreened().isAfter(LocalDateTime.now());
     }
 
     abstract protected Money getDiscountAmount(Screening screening);

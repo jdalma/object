@@ -6,6 +6,7 @@ import _02_movie.movie.Movie;
 import _02_movie.policy.AmountDiscountPolicy;
 import _02_movie.movie.DiscountPolicy;
 import _02_movie.policy.NoneDiscountPolicy;
+import _02_movie.policy.OverlappedDiscountPolicy;
 import _02_movie.policy.PercentDiscountPolicy;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -34,12 +35,26 @@ class MovieTest {
             new PeriodCondition(DayOfWeek.THURSDAY, LocalTime.of(10, 0), LocalTime.of(20, 59))
     );
 
+    private final DiscountPolicy given_아바타_중복할인정책 = new OverlappedDiscountPolicy(
+            new AmountDiscountPolicy(given_고정할인금액, new SequenceCondition(1)),
+            new PercentDiscountPolicy(given_할인비율, new SequenceCondition(1))
+    );
+
     private Movie given_아바타() {
         return new Movie(
                 "아바타",
                 Duration.ofMinutes(120),
                 Money.wons(10000),
                 given_아바타_할인정책
+        );
+    }
+
+    private Movie given_아바타_중복할인정책() {
+        return new Movie(
+                "아바타",
+                Duration.ofMinutes(120),
+                Money.wons(10000),
+                given_아바타_중복할인정책
         );
     }
 
@@ -82,6 +97,36 @@ class MovieTest {
     @Nested
     @DisplayName("calculateMovieFee 메소드는")
     class Describe_calculateMovieFee {
+
+        @Nested
+        @DisplayName("주어진 영화가 '아바타'일 때 (할인 조건: 상영 시작 시간, 상영 순번 / 할인 금액: 고정 금액 + 비율 금액")
+        class Context_with_avatar_overlapped extends TestCalculateMovieFee {
+
+            @Override
+            Movie givenMovie() {
+                return given_아바타_중복할인정책();
+            }
+
+            @Nested
+            @DisplayName("상영 순서가 할인 조건에 맞는다면")
+            class Context_with_valid_sequence {
+                final List<Integer> 지정된_상영_순번 = List.of(1);
+
+                List<Screening> givenScreens() {
+                    return 지정된_상영_순번.stream()
+                            .map(seq -> new Screening(givenMovie(), seq, given_일요일_오후))
+                            .collect(Collectors.toList());
+                }
+                @Test
+                @DisplayName("고정할인과 비율할인이 같이 적용된 할인된 금액을 리턴한다.")
+                void It_returns_discounted_fee() {
+                    for (Screening 할인되는_순번으로_시작하는_상영 : givenScreens()) {
+                        final Money 계산된_요금 = subject(할인되는_순번으로_시작하는_상영);
+                        Assertions.assertThat(기본_요금().minus(given_고정할인금액).minus(기본_요금().times(given_할인비율))).isEqualTo(계산된_요금);
+                    }
+                }
+            }
+        }
 
         @Nested
         @DisplayName("주어진 영화가 '아바타'일 때 (할인 조건: 상영 시작 시간, 상영 순번 / 할인 금액: 고정 금액")
@@ -231,7 +276,7 @@ class MovieTest {
                 void it_returns_discounted_fee() {
                     for (Screening 할인되는_시간에_시작하는_상영 : givenScreens()) {
                         final Money 계산된_요금 = subject(할인되는_시간에_시작하는_상영);
-
+                        System.out.println(할인되는_시간에_시작하는_상영);
                         Assertions.assertThat(기본_요금().times(1 - given_할인비율)).isEqualTo(계산된_요금);
                     }
                 }

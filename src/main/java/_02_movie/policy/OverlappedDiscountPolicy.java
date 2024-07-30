@@ -6,7 +6,7 @@ import _02_movie.movie.DiscountPolicy;
 
 import java.util.List;
 
-public class OverlappedDiscountPolicy extends DefaultDiscountPolicy {
+public class OverlappedDiscountPolicy implements DiscountPolicy {
 
     private final List<DiscountPolicy> discountPolicies;
 
@@ -15,11 +15,13 @@ public class OverlappedDiscountPolicy extends DefaultDiscountPolicy {
     }
 
     @Override
-    protected Money getDiscountAmount(Screening screening) {
+    public Money calculateDiscountAmount(Screening screening) {
         Money result = Money.ZERO;
-        for (DiscountPolicy each : discountPolicies) {
-            result = result.plus(each.calculateDiscountAmount(screening));
+
+        for (DiscountPolicy discountPolicy : discountPolicies) {
+            result = result.plus(discountPolicy.calculateDiscountAmount(screening));
         }
+
         return result;
     }
 }
