@@ -1,4 +1,4 @@
-package appenddix_A.variance.publisher;
+package appendix_A.variance.publisher;
 
 public class IndependentPublisher extends Publisher {
 }

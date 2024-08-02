@@ -1,8 +1,8 @@
-package appenddix_A.variance.store;
+package appendix_A.variance.store;
 
-import appenddix_A.variance.book.Book;
-import appenddix_A.variance.book.Magazine;
-import appenddix_A.variance.publisher.IndependentPublisher;
+import appendix_A.variance.book.Book;
+import appendix_A.variance.book.Magazine;
+import appendix_A.variance.publisher.IndependentPublisher;
 
 public class MagazineStore extends BookStall {
 

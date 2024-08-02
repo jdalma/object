@@ -1,9 +1,9 @@
-package appenddix_A.variance;
+package appendix_A.variance;
 
-import appenddix_A.variance.book.Book;
-import appenddix_A.variance.publisher.IndependentPublisher;
-import appenddix_A.variance.store.BookStall;
-import appenddix_A.variance.store.MagazineStore;
+import appendix_A.variance.book.Book;
+import appendix_A.variance.publisher.IndependentPublisher;
+import appendix_A.variance.store.BookStall;
+import appendix_A.variance.store.MagazineStore;
 
 public class Customer {
 

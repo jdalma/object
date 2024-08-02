@@ -1,4 +1,4 @@
-package appenddix_A.billing;
+package appendix_A.billing;
 
 import _02_movie.Money;
 

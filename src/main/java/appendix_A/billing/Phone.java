@@ -1,6 +1,5 @@
-package appenddix_A.billing;
+package appendix_A.billing;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Phone {
